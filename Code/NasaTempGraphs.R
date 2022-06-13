@@ -1,6 +1,6 @@
 library(tidyverse)
 read.csv("NasaTemp Data/GLB.Ts+dSST.csv",skip = 1, na= "***") %>% 
-  select(year = `Year`, t_diff = `J.D`) %>% 
+  select(year = `Year`, t_diff = `J.D`) %>% drop_na() %>% 
   ggplot(aes(x=year,y=t_diff))+
   geom_line(color = "gray")+
   geom_point(fill= "white",color = "gray",shape =21)+
@@ -15,7 +15,8 @@ read.csv("NasaTemp Data/GLB.Ts+dSST.csv",skip = 1, na= "***") %>%
         plot.title.position = "plot",
         plot.title = element_text(margin = margin(b=10),colour = "red",face = "bold"),
         plot.subtitle = element_text(size = 8, margin = margin(b=10)))
+tail(climate)
 
-
+climate %>% drop_na() %>% tail()
 ggsave("Figers/temperature_plot_1.png",
        width=6, height = 4)
